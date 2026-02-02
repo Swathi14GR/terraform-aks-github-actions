@@ -32,12 +32,7 @@ jobs:
     #  run: |
     #    rm -rf terraform/.terraform
      #   rm -f terraform/.terraform.lock.hcl
-
-    - name: Terraform Force Unlock (only if needed)
-      if: failure()
-      run: |
-       terraform force-unlock -force c5ac6797-de69-d4da-8eb5-0c0c7c8679b7
-
+     
     - name: Terraform Init
       run: terraform init 
       working-directory: terraform
@@ -66,7 +61,7 @@ jobs:
   
     - name: Terraform Plan
       if: github.event_name == 'pull_request'
-      run: terraform plan
+      run: terraform plan -lock-timeout=5m
       working-directory: terraform
 
     - name: Terraform Apply
