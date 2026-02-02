@@ -28,7 +28,11 @@ jobs:
         subscription-id: ${{ secrets.ARM_SUBSCRIPTION_ID }}
 
     - uses: hashicorp/setup-terraform@v3
-
+    - name: Clean Terraform cache
+      run: |
+        rm -rf terraform/.terraform
+        rm -f terraform/.terraform.lock.hcl
+        
     - name: Terraform Init
       run: terraform init --upgrade
       working-directory: terraform
