@@ -85,5 +85,4 @@ resource "azurerm_kubernetes_cluster" "aks" {
   oms_agent {
     log_analytics_workspace_id = var.log_analytics_id
   }
-  
 }
