@@ -32,6 +32,7 @@ variable "subnet_address_prefixes" {
 variable "acr_name" {
   description = "Azure Container Registry name"
   type        = string
+  default     = "myacrassignment"
 }
 
 variable "acr_sku" {
