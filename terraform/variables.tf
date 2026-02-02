@@ -10,7 +10,7 @@ variable "resource_group_name" {
 variable "location" {
   description = "Azure region to deploy resources"
   type        = string
-  default     = "East US"
+  default     = "eastus"
 }
 
 # -----------------------------
@@ -46,7 +46,7 @@ variable "subnet_address_prefixes" {
 variable "acr_name" {
   description = "ACR name"
   type        = string
-  default     = "myacr12345"
+  default     = "myacr_assignment"
 }
 
 variable "acr_sku" {
