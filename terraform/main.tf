@@ -1,14 +1,10 @@
-#-----------------------------
 # Resource Group
-#-----------------------------
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
   location = var.location
 }
 
-#-----------------------------
 # Virtual Network
-#-----------------------------
 resource "azurerm_virtual_network" "aks_vnet" {
   name                = var.vnet_name
   resource_group_name = azurerm_resource_group.rg.name
@@ -31,9 +27,7 @@ resource "azurerm_subnet" "aks_subnet" {
   }
 }
 
-#-----------------------------
 # Azure Container Registry
-#-----------------------------
 resource "azurerm_container_registry" "acr" {
   name                = var.acr_name
   resource_group_name = azurerm_resource_group.rg.name
@@ -42,9 +36,7 @@ resource "azurerm_container_registry" "acr" {
   admin_enabled       = var.acr_admin_enabled
 }
 
-#-----------------------------
 # AKS Cluster
-#-----------------------------
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = var.aks_name
   location            = azurerm_resource_group.rg.location
@@ -62,21 +54,15 @@ resource "azurerm_kubernetes_cluster" "aks" {
     type = "SystemAssigned"
   }
 
-  # Enable RBAC
   role_based_access_control {
     enabled = true
   }
 
-  # Restrict API access
   api_server_access_profile {
     authorized_ip_ranges   = var.authorized_ip_ranges
     enable_private_cluster = var.enable_private_cluster
   }
 
-  # Enable network policy
   network_profile {
     network_plugin    = "azure"
     network_policy    = "azure"
-    load_balancer_sku = "standard"
-  }
-}

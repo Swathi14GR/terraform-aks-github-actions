@@ -1,6 +1,3 @@
-#-----------------------------
-# Resource Group
-#-----------------------------
 output "resource_group_name" {
   description = "The name of the resource group"
   value       = azurerm_resource_group.rg.name
@@ -11,9 +8,6 @@ output "resource_group_location" {
   value       = azurerm_resource_group.rg.location
 }
 
-#-----------------------------
-# Virtual Network & Subnet
-#-----------------------------
 output "vnet_name" {
   description = "Name of the virtual network"
   value       = azurerm_virtual_network.aks_vnet.name
@@ -34,9 +28,6 @@ output "subnet_address_prefixes" {
   value       = azurerm_subnet.aks_subnet.address_prefixes
 }
 
-#-----------------------------
-# Azure Container Registry
-#-----------------------------
 output "acr_name" {
   description = "The name of the Azure Container Registry"
   value       = azurerm_container_registry.acr.name
@@ -47,9 +38,6 @@ output "acr_login_server" {
   value       = azurerm_container_registry.acr.login_server
 }
 
-#-----------------------------
-# AKS Cluster
-#-----------------------------
 output "aks_name" {
   description = "The name of the AKS cluster"
   value       = azurerm_kubernetes_cluster.aks.name
