@@ -1,10 +1,29 @@
+terraform {
+  required_version = ">= 1.5.0"
+
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 3.64.0"
+    }
+  }
+}
+
+provider "azurerm" {
+  features {}
+}
+
+# -----------------------------
 # Resource Group
+# -----------------------------
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
   location = var.location
 }
 
+# -----------------------------
 # Virtual Network
+# -----------------------------
 resource "azurerm_virtual_network" "aks_vnet" {
   name                = var.vnet_name
   resource_group_name = azurerm_resource_group.rg.name
@@ -20,6 +39,7 @@ resource "azurerm_subnet" "aks_subnet" {
 
   delegation {
     name = "aks_delegation"
+
     service_delegation {
       name    = "Microsoft.ContainerService/managedClusters"
       actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
@@ -27,7 +47,9 @@ resource "azurerm_subnet" "aks_subnet" {
   }
 }
 
+# -----------------------------
 # Azure Container Registry
+# -----------------------------
 resource "azurerm_container_registry" "acr" {
   name                = var.acr_name
   resource_group_name = azurerm_resource_group.rg.name
@@ -36,7 +58,9 @@ resource "azurerm_container_registry" "acr" {
   admin_enabled       = var.acr_admin_enabled
 }
 
+# -----------------------------
 # AKS Cluster
+# -----------------------------
 resource "azurerm_kubernetes_cluster" "aks" {
   name                = var.aks_name
   location            = azurerm_resource_group.rg.location
