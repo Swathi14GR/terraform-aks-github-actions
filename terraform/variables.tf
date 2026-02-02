@@ -25,7 +25,7 @@ variable "vnet_address_space" {
 variable "subnet_name" {
   description = "Name of the subnet"
   type        = string
-  default     = "aks-subnet1"
+  default     = "aks-subnet2"
 }
 
 variable "subnet_address_prefixes" {
