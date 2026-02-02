@@ -1,6 +1,7 @@
 variable "resource_group_name" {
   description = "Name of the Resource Group"
   type        = string
+  default     = "rg-devops"
 }
 
 variable "location" {
@@ -12,21 +13,25 @@ variable "location" {
 variable "vnet_name" {
   description = "Name of the virtual network"
   type        = string
+  default     = "aks-vnet"
 }
 
 variable "vnet_address_space" {
   description = "Address space for VNet"
   type        = list(string)
+  default     = ["10.0.0.0/16"]
 }
 
 variable "subnet_name" {
   description = "Name of the subnet"
   type        = string
+  default     = "aks-subnet"
 }
 
 variable "subnet_address_prefixes" {
   description = "Address prefixes for the subnet"
   type        = list(string)
+  default     = ["10.0.1.0/24"]
 }
 
 variable "acr_name" {
@@ -50,6 +55,7 @@ variable "acr_admin_enabled" {
 variable "aks_name" {
   description = "AKS Cluster name"
   type        = string
+  default     = "aks-devops"
 }
 
 variable "node_count" {
@@ -73,6 +79,7 @@ variable "node_vm_size" {
 variable "dns_prefix" {
   description = "DNS prefix for AKS"
   type        = string
+  default     = "aksdevops"
 }
 
 variable "authorized_ip_ranges" {
