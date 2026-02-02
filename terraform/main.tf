@@ -53,7 +53,7 @@ resource "azurerm_kubernetes_cluster" "aks" {
   dns_prefix          = var.dns_prefix
   
   role_based_access_control_enabled = true
-  private_cluster_enabled           = var.enable_private_cluster
+  private_cluster_enabled  = var.enable_private_cluster
 
 
   default_node_pool {
