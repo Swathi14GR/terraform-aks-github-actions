@@ -2,25 +2,25 @@
 # Resource Group
 #-----------------------------
 resource "azurerm_resource_group" "rg" {
-  name     = "rg-devops"
-  location = "East US"
+  name     = var.resource_group_name
+  location = var.location
 }
 
 #-----------------------------
 # Virtual Network
 #-----------------------------
 resource "azurerm_virtual_network" "aks_vnet" {
-  name                = "aks-vnet"
+  name                = var.vnet_name
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  address_space       = ["10.0.0.0/16"]
+  address_space       = var.vnet_address_space
 }
 
 resource "azurerm_subnet" "aks_subnet" {
-  name                 = "aks-subnet"
+  name                 = var.subnet_name
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.aks_vnet.name
-  address_prefixes     = ["10.0.1.0/24"]
+  address_prefixes     = var.subnet_address_prefixes
 
   delegation {
     name = "aks_delegation"
@@ -35,26 +35,26 @@ resource "azurerm_subnet" "aks_subnet" {
 # Azure Container Registry
 #-----------------------------
 resource "azurerm_container_registry" "acr" {
-  name                = "myacr12345"
+  name                = var.acr_name
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  sku                 = "Basic"
-  admin_enabled       = false
+  sku                 = var.acr_sku
+  admin_enabled       = var.acr_admin_enabled
 }
 
 #-----------------------------
 # AKS Cluster
 #-----------------------------
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                = "aks-devops"
+  name                = var.aks_name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
-  dns_prefix          = "aksdevops"
+  dns_prefix          = var.dns_prefix
 
   default_node_pool {
     name           = "default"
-    node_count     = 1
-    vm_size        = "Standard_B2s"
+    node_count     = var.node_count
+    vm_size        = var.node_vm_size
     vnet_subnet_id = azurerm_subnet.aks_subnet.id
   }
 
@@ -62,15 +62,15 @@ resource "azurerm_kubernetes_cluster" "aks" {
     type = "SystemAssigned"
   }
 
-  # Enable RBAC (fixes HIGH severity)
+  # Enable RBAC
   role_based_access_control {
     enabled = true
   }
 
-  # Restrict API access to specific IPs
+  # Restrict API access
   api_server_access_profile {
-    authorized_ip_ranges   = ["203.0.113.10/32"] # Replace with your allowed IPs
-    enable_private_cluster = false
+    authorized_ip_ranges   = var.authorized_ip_ranges
+    enable_private_cluster = var.enable_private_cluster
   }
 
   # Enable network policy
@@ -79,10 +79,4 @@ resource "azurerm_kubernetes_cluster" "aks" {
     network_policy    = "azure"
     load_balancer_sku = "standard"
   }
-
-  tags = {
-    environment = "devops"
-  }
 }
-
-
