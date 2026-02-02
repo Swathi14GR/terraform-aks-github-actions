@@ -81,8 +81,9 @@ resource "azurerm_kubernetes_cluster" "aks" {
     network_plugin = "azure"
     network_policy = "azure"
   }
-  
+
   oms_agent {
     log_analytics_workspace_id = var.log_analytics_id
   }
+  
 }
