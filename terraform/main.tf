@@ -1,17 +1,11 @@
 # -----------------------------
 # Resource Group
 # -----------------------------
-# -----------------------------
-# Resource Group
-# -----------------------------
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
   location = var.location
 }
 
-# -----------------------------
-# Virtual Network
-# -----------------------------
 # -----------------------------
 # Virtual Network
 # -----------------------------
@@ -38,9 +32,6 @@ resource "azurerm_subnet" "aks_subnet" {
 # -----------------------------
 # Azure Container Registry
 # -----------------------------
-# -----------------------------
-# Azure Container Registry
-# -----------------------------
 resource "azurerm_container_registry" "acr" {
   name                = var.acr_name
   resource_group_name = azurerm_resource_group.rg.name
@@ -52,9 +43,6 @@ resource "azurerm_container_registry" "acr" {
 # -----------------------------
 # Log Analytics Workspace
 # -----------------------------
-# -----------------------------
-# Log Analytics Workspace
-# -----------------------------
 resource "azurerm_log_analytics_workspace" "law" {
   name                = "${var.resource_group_name}-law"
   location            = azurerm_resource_group.rg.location
@@ -63,9 +51,6 @@ resource "azurerm_log_analytics_workspace" "law" {
   retention_in_days   = 30
 }
 
-# -----------------------------
-# AKS Cluster
-# -----------------------------
 # -----------------------------
 # AKS Cluster
 # -----------------------------
