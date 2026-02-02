@@ -28,7 +28,7 @@ resource "azurerm_subnet" "aks_subnet" {
       #name    = "Microsoft.ContainerService/managedClusters"
       #actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
     #}
-  }
+  #}
 }
 
 # -----------------------------
