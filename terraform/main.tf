@@ -44,19 +44,30 @@ resource "azurerm_container_registry" "acr" {
 }
 
 # -----------------------------
+# Log Analytics Workspace (OMS Agent)
+# -----------------------------
+resource "azurerm_log_analytics_workspace" "la" {
+  name                = var.log_analytics_name
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  sku                 = "PerGB2018"
+  retention_in_days   = 30
+}
+
+# -----------------------------
 # AKS Cluster
 # -----------------------------
 resource "azurerm_kubernetes_cluster" "aks" {
-  name                = var.aks_name
+  name                = var.cluster_name
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   dns_prefix          = var.dns_prefix
-
+  kubernetes_version  = "1.28.6"
+  private_cluster_enabled           = true
   role_based_access_control_enabled = true
-  private_cluster_enabled           = var.enable_private_cluster
 
   default_node_pool {
-    name           = "default"
+    name           = "system"
     node_count     = var.node_count
     vm_size        = var.node_vm_size
     vnet_subnet_id = azurerm_subnet.aks_subnet.id
@@ -69,5 +80,13 @@ resource "azurerm_kubernetes_cluster" "aks" {
   network_profile {
     network_plugin = "azure"
     network_policy = "azure"
+  }
+
+  api_server_access_profile {
+    authorized_ip_ranges = var.authorized_ip_ranges
+  }
+
+  oms_agent {
+    log_analytics_workspace_id = azurerm_log_analytics_workspace.la.id
   }
 }

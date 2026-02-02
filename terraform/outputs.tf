@@ -1,24 +1,29 @@
 output "resource_group_name" {
-  value = azurerm_resource_group.rg.name
-}
-
-output "vnet_id" {
-  value = azurerm_virtual_network.aks_vnet.id
-}
-
-output "subnet_id" {
-  value = azurerm_subnet.aks_subnet.id
-}
-
-output "acr_login_server" {
-  value = azurerm_container_registry.acr.login_server
+  description = "Resource Group Name"
+  value       = azurerm_resource_group.rg.name
 }
 
 output "aks_cluster_name" {
-  value = azurerm_kubernetes_cluster.aks.name
+  description = "AKS Cluster Name"
+  value       = azurerm_kubernetes_cluster.aks.name
 }
 
-output "aks_cluster_kube_config" {
-  value     = azurerm_kubernetes_cluster.aks.kube_config_raw
-  sensitive = true
+output "aks_cluster_fqdn" {
+  description = "AKS Cluster FQDN"
+  value       = azurerm_kubernetes_cluster.aks.fqdn
+}
+
+output "acr_login_server" {
+  description = "ACR login server"
+  value       = azurerm_container_registry.acr.login_server
+}
+
+output "subnet_id" {
+  description = "Subnet ID for AKS"
+  value       = azurerm_subnet.aks_subnet.id
+}
+
+output "log_analytics_workspace_id" {
+  description = "Log Analytics Workspace ID"
+  value       = azurerm_log_analytics_workspace.la.id
 }

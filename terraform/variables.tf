@@ -1,23 +1,19 @@
-# -----------------------------
-# Resource Group
-# -----------------------------
+# General
 variable "resource_group_name" {
-  description = "Azure Resource Group name"
+  description = "Name of the resource group"
   type        = string
   default     = "rg-devops"
 }
 
 variable "location" {
-  description = "Azure region to deploy resources"
+  description = "Azure location"
   type        = string
   default     = "eastus"
 }
 
-# -----------------------------
 # Virtual Network
-# -----------------------------
 variable "vnet_name" {
-  description = "Virtual Network name"
+  description = "VNet name"
   type        = string
   default     = "aks-vnet"
 }
@@ -35,18 +31,16 @@ variable "subnet_name" {
 }
 
 variable "subnet_address_prefixes" {
-  description = "Subnet prefixes"
+  description = "Subnet address prefixes"
   type        = list(string)
   default     = ["10.0.1.0/24"]
 }
 
-# -----------------------------
-# Azure Container Registry
-# -----------------------------
+# Container Registry
 variable "acr_name" {
   description = "ACR name"
   type        = string
-  default     = "myacrassignment"
+  default     = "acrdevops"
 }
 
 variable "acr_sku" {
@@ -56,16 +50,14 @@ variable "acr_sku" {
 }
 
 variable "acr_admin_enabled" {
-  description = "Enable admin user for ACR"
+  description = "Enable admin account for ACR"
   type        = bool
-  default     = false
+  default     = true
 }
 
-# -----------------------------
 # AKS Cluster
-# -----------------------------
-variable "aks_name" {
-  description = "AKS cluster name"
+variable "cluster_name" {
+  description = "AKS Cluster name"
   type        = string
   default     = "aks-devops"
 }
@@ -73,32 +65,30 @@ variable "aks_name" {
 variable "dns_prefix" {
   description = "AKS DNS prefix"
   type        = string
-  default     = "aksdevops"
+  default     = "aks-devops"
 }
 
 variable "node_count" {
-  description = "Default node pool count"
+  description = "Number of nodes in default pool"
   type        = number
-  default     = 1
+  default     = 2
 }
 
 variable "node_vm_size" {
-  description = "VM size for default node pool"
+  description = "VM size for default pool"
   type        = string
   default     = "standard_d8_v3"
 }
 
-# -----------------------------
-# API Server Access
-# -----------------------------
 variable "authorized_ip_ranges" {
   description = "List of IPs allowed to access AKS API"
   type        = list(string)
-  default     = ["152.57.99.167/32"] # replace with your IP
+  default     = ["152.57.99.167/32"]
 }
 
-variable "enable_private_cluster" {
-  description = "Enable private cluster (API only reachable inside VNet)"
-  type        = bool
-  default     = true
+# Log Analytics
+variable "log_analytics_name" {
+  description = "Log Analytics Workspace name"
+  type        = string
+  default     = "la-devops"
 }
