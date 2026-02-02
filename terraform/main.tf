@@ -73,5 +73,4 @@ resource "azurerm_kubernetes_cluster" "aks" {
   api_server_access_profile {
     authorized_ip_ranges = var.authorized_ip_ranges
   }
-
 }
