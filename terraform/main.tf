@@ -26,8 +26,10 @@ resource "azurerm_subnet" "aks_subnet" {
     name = "aks_delegation"
 
     service_delegation {
-      name    = "Microsoft.ContainerService/managedClusters"
-      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+      name = "Microsoft.ContainerService/managedClusters"
+      actions = [
+        "Microsoft.Network/virtualNetworks/subnets/action"
+      ]
     }
   }
 }
@@ -69,9 +71,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
     network_plugin = "azure"
     network_policy = "azure"
   }
-  
+
   api_server_access_profile {
     authorized_ip_ranges = var.authorized_ip_ranges
   }
-
 }
