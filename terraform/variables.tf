@@ -102,14 +102,3 @@ variable "enable_private_cluster" {
   type        = bool
   default     = false
 }
-
-#-----------------------------
-# Tags
-#-----------------------------
-variable "tags" {
-  description = "Tags to assign to all resources"
-  type        = map(string)
-  default = {
-    environment = "devops"
-  }
-}
