@@ -21,6 +21,15 @@ resource "azurerm_subnet" "aks_subnet" {
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.aks_vnet.name
   address_prefixes     = var.subnet_address_prefixes
+
+  delegation {
+    name = "aks-delegation"
+
+    service_delegation {
+      name    = "Microsoft.ContainerService/managedClusters"
+      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    }
+  }
 }
 
 # -----------------------------
@@ -69,10 +78,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
   }
 
   network_profile {
-    network_plugin      = "azure"
-    network_policy      = "azure"
-    service_cidr        = "10.1.0.0/16"
-    dns_service_ip      = "10.1.0.10"
+    network_plugin = "azure"
+    network_policy = "azure"
+    service_cidr   = "10.1.0.0/16"
+    dns_service_ip = "10.1.0.10"
   }
 
   oms_agent {
