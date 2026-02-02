@@ -44,7 +44,7 @@ resource "azurerm_container_registry" "acr" {
 }
 
 # -----------------------------
-# Log Analytics Workspace (OMS Agent)
+# Log Analytics Workspace
 # -----------------------------
 resource "azurerm_log_analytics_workspace" "la" {
   name                = var.log_analytics_name
