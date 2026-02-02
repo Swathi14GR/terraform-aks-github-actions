@@ -1,100 +1,91 @@
-# -----------------------------
-# Resource Group
-# -----------------------------
 variable "resource_group_name" {
-  description = "Azure Resource Group name"
+  description = "Name of the Resource Group"
   type        = string
   default     = "rg-devops"
 }
 
 variable "location" {
-  description = "Azure region to deploy resources"
+  description = "Azure Region"
   type        = string
   default     = "eastus"
 }
 
-# -----------------------------
-# Virtual Network
-# -----------------------------
 variable "vnet_name" {
-  description = "Virtual Network name"
+  description = "Name of the virtual network"
   type        = string
   default     = "aks-vnet"
 }
 
 variable "vnet_address_space" {
-  description = "VNet address space"
+  description = "Address space for VNet"
   type        = list(string)
   default     = ["10.0.0.0/16"]
 }
 
 variable "subnet_name" {
-  description = "Subnet name"
+  description = "Name of the subnet"
   type        = string
   default     = "aks-subnet"
 }
 
 variable "subnet_address_prefixes" {
-  description = "Subnet prefixes"
+  description = "Address prefixes for the subnet"
   type        = list(string)
   default     = ["10.0.1.0/24"]
 }
 
-# -----------------------------
-# Azure Container Registry
-# -----------------------------
 variable "acr_name" {
-  description = "ACR name"
+  description = "Azure Container Registry name"
   type        = string
   default     = "myacrassignment"
 }
 
 variable "acr_sku" {
-  description = "ACR SKU"
+  description = "SKU of ACR"
   type        = string
   default     = "Basic"
 }
 
 variable "acr_admin_enabled" {
-  description = "Enable admin user for ACR"
+  description = "Enable admin user in ACR"
   type        = bool
   default     = false
 }
 
-# -----------------------------
-# AKS Cluster
-# -----------------------------
 variable "aks_name" {
-  description = "AKS cluster name"
+  description = "AKS Cluster name"
   type        = string
   default     = "aks-devops"
 }
 
-variable "dns_prefix" {
-  description = "AKS DNS prefix"
-  type        = string
-  default     = "aksdevops"
-}
-
 variable "node_count" {
-  description = "Default node pool count"
+  description = "Number of nodes in default pool"
   type        = number
   default     = 1
 }
 
-variable "node_vm_size" {
-  description = "VM size for default node pool"
+variable "kubernetes_version" {
+  description = "Kubernetes version for AKS cluster"
   type        = string
-  default     = "Standard_B2s"
+  default     = "1.28.6"
 }
 
-# -----------------------------
-# API Server Access
-# -----------------------------
+variable "node_vm_size" {
+  description = "VM size of nodes"
+  type        = string
+  default     = "Standard_D8_v3"
+}
+
+variable "dns_prefix" {
+  description = "DNS prefix for AKS"
+  type        = string
+  default     = "aksdevops"
+}
+
 variable "authorized_ip_ranges" {
-  description = "List of IPs allowed to access AKS API"
+  description = "IP ranges allowed to access AKS API"
   type        = list(string)
-  default     = ["152.57.99.167/32"] # replace with your IP
+  default     = ["152.57.99.167/32"]
 }
 
 variable "enable_private_cluster" {
