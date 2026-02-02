@@ -100,5 +100,5 @@ variable "authorized_ip_ranges" {
 variable "enable_private_cluster" {
   description = "Enable private cluster (API only reachable inside VNet)"
   type        = bool
-  default     = false
+  default     = true
 }

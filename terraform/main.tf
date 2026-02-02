@@ -66,10 +66,6 @@ resource "azurerm_kubernetes_cluster" "aks" {
     type = "SystemAssigned"
   }
 
-  api_server_access_profile {
-    authorized_ip_ranges = var.authorized_ip_ranges
-  }
-
   network_profile {
     network_plugin = "azure"
     network_policy = "azure"
