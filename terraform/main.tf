@@ -51,6 +51,10 @@ resource "azurerm_kubernetes_cluster" "aks" {
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   dns_prefix          = var.dns_prefix
+  
+  role_based_access_control_enabled = true
+  private_cluster_enabled           = var.enable_private_cluster
+
 
   default_node_pool {
     name           = "default"
@@ -63,13 +67,8 @@ resource "azurerm_kubernetes_cluster" "aks" {
     type = "SystemAssigned"
   }
 
-  role_based_access_control {
-    enabled = true
-  }
-
   api_server_access_profile {
     authorized_ip_ranges   = var.authorized_ip_ranges
-    enable_private_cluster = var.enable_private_cluster
   }
 
   network_profile {
