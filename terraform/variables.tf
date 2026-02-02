@@ -57,6 +57,12 @@ variable "node_count" {
   default     = 1
 }
 
+variable "kubernetes_version" {
+  description = "Kubernetes version for AKS cluster"
+  type        = string
+  default     = "1.28.6"   # You can update this if needed
+}
+
 variable "node_vm_size" {
   description = "VM size of nodes"
   type        = string
@@ -72,4 +78,10 @@ variable "authorized_ip_ranges" {
   description = "IP ranges allowed to access AKS API"
   type        = list(string)
   default     = ["152.57.99.167/32"]
+}
+
+variable "enable_private_cluster" {
+  description = "Enable private cluster (API only reachable inside VNet)"
+  type        = bool
+  default     = true
 }
