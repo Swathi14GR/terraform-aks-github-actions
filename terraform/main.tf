@@ -24,14 +24,12 @@ resource "azurerm_subnet" "aks_subnet" {
 
   delegation {
     name = "aks_delegation"
-
     service_delegation {
       name    = "Microsoft.ContainerService/managedClusters"
       actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
     }
   }
 }
-
 # -----------------------------
 # Azure Container Registry
 # -----------------------------
