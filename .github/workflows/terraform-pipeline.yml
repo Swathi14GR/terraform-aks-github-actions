@@ -44,8 +44,9 @@ jobs:
     - name: tfsec
       uses: aquasecurity/tfsec-action@v1.0.3
       with:
-        working_directory: terraform
-        severity: HIGH
+       working_directory: terraform
+       additional_args: --minimum-severity HIGH
+       github_token: ${{ github.token }}
 
     - name: Trivy IaC Scan
       uses: aquasecurity/trivy-action@0.28.0
