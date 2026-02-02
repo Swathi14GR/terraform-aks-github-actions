@@ -35,9 +35,9 @@ jobs:
 
     - name: Push to ACR
       run: |
-        az acr login --name myacr_assignment
-        docker tag myapp:${{ github.sha }} myacr_assignment.azurecr.io/myapp:${{ github.sha }}
-        docker push myacr_assignment.azurecr.io/myapp:${{ github.sha }}
+        az acr login --name myacrassignment
+        docker tag myapp:${{ github.sha }} myacrassignment.azurecr.io/myapp:${{ github.sha }}
+        docker push myacrassignment.azurecr.io/myapp:${{ github.sha }}
 
     - name: Deploy to AKS
       run: |
