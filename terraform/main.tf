@@ -22,13 +22,12 @@ resource "azurerm_subnet" "aks_subnet" {
   virtual_network_name = azurerm_virtual_network.aks_vnet.name
   address_prefixes     = var.subnet_address_prefixes
 
-  delegation {
-    name = "aks_delegation"
-
-    service_delegation {
-      name    = "Microsoft.ContainerService/managedClusters"
-      actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
-    }
+  #delegation {
+    #name = "aks_delegation"
+    #service_delegation {
+      #name    = "Microsoft.ContainerService/managedClusters"
+      #actions = ["Microsoft.Network/virtualNetworks/subnets/action"]
+    #}
   }
 }
 
