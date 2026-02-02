@@ -60,7 +60,7 @@ variable "node_count" {
 variable "kubernetes_version" {
   description = "Kubernetes version for AKS cluster"
   type        = string
-  default     = "1.28.6"   # You can update this if needed
+  default     = "1.28.6"
 }
 
 variable "node_vm_size" {
