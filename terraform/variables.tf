@@ -46,7 +46,7 @@ variable "subnet_address_prefixes" {
 variable "acr_name" {
   description = "ACR name"
   type        = string
-  default     = "myacr_assignment"
+  default     = "myacrassignment"
 }
 
 variable "acr_sku" {

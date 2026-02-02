@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: myacr12345.azurecr.io/myapp:latest
+        image: myacrassignment.azurecr.io/myapp:latest
         ports:
         - containerPort: 80
         readinessProbe:
